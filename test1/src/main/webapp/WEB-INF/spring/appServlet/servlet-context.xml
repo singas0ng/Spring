@@ -4,9 +4,11 @@
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
@@ -26,25 +28,9 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<!-- view 역할을 하는 파일을 적을 때 ViewResolver가 해결해줄거야~ -->
 		<beans:property name="suffix" value=".jsp" />
-	</beans:bean>
-
-	<beans:bean id="testDto" class="kh.mclass.test1.sub.model.dto.TestDto">
-		<beans:property name="a1" value="setter값"/>
-		<beans:constructor-arg name="a2" value="생성자값"/>
-		<!-- 생성자로 객체를 만듦 -->
-		<beans:property name="testFileDto" ref="testFileDto"></beans:property>
-		<!-- 
-		<beans:constructor-arg name="a1" value="첫값2"/>
-		 -->
-	</beans:bean>
-	<beans:bean id="testFileDto" class="kh.mclass.test1.sub.model.dto.TestFileDto">
-		<beans:constructor-arg name="filePath" value="aaa.jpg"/>
-		<beans:constructor-arg name="fileType" value="jpg"/>
-	</beans:bean>
+	</beans:bean>	
 	
-	
-	
-	<context:component-scan base-package="kh.mcalss.test1" />
+	<context:component-scan base-package="kh.mclass.test1" />
 	<!-- component-scan: 이 안에 annotation(@) 쫙 있음 => annotation 인지하는 얘 -->	
 	<!-- @Repository - dao에 걸기 -->
 	<!-- @RestController - put, patch, delete를 활용해서 쓰는 controller -->
@@ -52,5 +38,8 @@
 	
 	<!-- bean 객체 생성 -->
 
+	<!-- 방법1 - @Aspect에 관련된 annotation 방식-->
+	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+	<!-- 방법2: root-mapper 에서 aopadvice, aopconfig, aoppointcut 을 안쓰고 이 방식 써도됨  -->
 	
 </beans:beans>
