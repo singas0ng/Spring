@@ -3,9 +3,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
@@ -25,20 +27,21 @@
 		<!-- view 역할을 하는 파일을 적을 때 ViewResolver가 해결해줄거야~ -->
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
-<!-- 	
+
 	<beans:bean id="testDto" class="kh.mclass.test1.sub.model.dto.TestDto">
-		<beans:constructor-arg name="a2" value="첫값2"></beans:constructor-arg>
-		<beans:constructor-arg name="a1" value="세터이용해서값넣기2"></beans:constructor-arg>
+		<beans:property name="a1" value="setter값"/>
+		<beans:constructor-arg name="a2" value="생성자값"/>
+		<!-- 생성자로 객체를 만듦 -->
 		<beans:property name="testFileDto" ref="testFileDto"></beans:property>
-		TestFileDto 형태로 만들어진 객체를 넣어줌 
+		<!-- 
+		<beans:constructor-arg name="a1" value="첫값2"/>
+		 -->
+	</beans:bean>
+	<beans:bean id="testFileDto" class="kh.mclass.test1.sub.model.dto.TestFileDto">
+		<beans:constructor-arg name="filePath" value="aaa.jpg"/>
+		<beans:constructor-arg name="fileType" value="jpg"/>
 	</beans:bean>
 	
-	<beans:bean id="testFileDto" class="kh.mclass.test1.sub.model.dto.TestFileDto">
-		<beans:constructor-arg name="filePath" value="aaa.org"></beans:constructor-arg>
-		<beans:constructor-arg name="fileType" value="jpg"></beans:constructor-arg>
-	</beans:bean> 
--->
-
 	
 	
 	<context:component-scan base-package="kh.mcalss.test1" />
@@ -46,4 +49,8 @@
 	<!-- @Repository - dao에 걸기 -->
 	<!-- @RestController - put, patch, delete를 활용해서 쓰는 controller -->
 	<!-- 추가 옵션 @ - new 하는 시점들을 어떻게 new 할 것인가(activation 뒤)-->
+	
+	<!-- bean 객체 생성 -->
+
+	
 </beans:beans>

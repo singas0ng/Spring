@@ -2,7 +2,7 @@ package kh.mclass.test1.sub.model.dto;
 
 import org.springframework.stereotype.Component;
 
-//@Component("testFileDto")
+@Component("testFileDto")
 public class TestFileDto {
 
 	private String filePath;

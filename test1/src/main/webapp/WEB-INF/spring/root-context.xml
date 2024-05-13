@@ -1,13 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
-
-	<bean class="org.apache.commons.dbcp2.BasicDataSource" id="dataSource">
-	<!-- apache에서 제공하는 클래스 -->
+	<context:property-placeholder location="classpath:keyproperties/db.properties"/> 
+	<!-- 하단에 Namespace에서 context 체크하기 -->
+	<!-- 얘는 여러개 적으면 안되고 다 적용시키고 싶으면 * 붙이기 -->
 	
+	<!-- DB연동 관련 Bean들-->
+	<!-- DBCP -->
+	<bean class="org.apache.commons.dbcp2.BasicDataSource" id="dataSource" destroy-method="close">
+	<!-- apache에서 제공하는 클래스 -->
+		<property name="driverClassName" value="${db.driverClassName}"></property>
+		<property name="url" value="${db.url}"></property>
+		<property name="username" value="${db.username}"></property>
+		<property name="password" value="${db.password}"></property>
 	</bean>
+	
+	<!-- myBatis -->
+	<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactoryBean">
+		<!-- id는 이름 상관 딱히 X -->
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
+		<!-- 해당 위치에 있는 configuration 지정해주고 그 위치에 있는 파일 까서 설정 -->
+		<!-- ref: 빈객체 id일때 사용 -->
+	</bean>
+	
+	<bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSession">
+		<!--기본 생성자 없으면 빨간색 뜸 -->
+		<!-- 다형성으로 자료형 달라도 커버하기 때문에 id나 class이름 둘중 하나만 같아도 autowired 가능 -->
+		<!-- 얘가 implement 하고 있는 class를 써야함 -->
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactoryBean"></constructor-arg>
+		<!-- 위에 bean 이 만들어져야 얘가 만들어짐 -->
+	</bean>
+	
+		
+	<bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager" id="transactionManager">
+	<!-- 반드시 id는 이거 써야함 -->	
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	
+	<!-- 방법1 - transactional 과 함께 써야함(method, class,..) -->
+	<tx:annotation-driven/>
+	
+ 	
+	<!-- 방법2  -->
+<!-- 	
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		manager 이름 바뀌면 X - advice형태의 객체 이름은 bean 이름
+		<tx:attributes>
+			<tx:method name="insert*" rollback-for="Exception"/>
+			rollback 어느 시점에 걸건지	
+			<tx:method name="update*" rollback-for="Exception"/>	
+			<tx:method name="delete*" rollback-for="Exception"/>
+			전부에 걸어줘
+			MemberService 에 적은 Transactional 안적어도 됨 	
+			<tx:method name="select*" rollback-for="Exception"/>
+		</tx:attributes>
+	</tx:advice>
+	transaction 걸고싶을  
+	xml 형태로 setting
+	
+	일처리(transaction)는 service에 걸어줌 - dao에서도 걸릴수 있기 때문에 transaction 명시해주기
+	<aop:config>
+		<aop:pointcut expression="execution(public * kh..*Service.*(..))" id="serviceMethod"/>
+		public 메소드에게만 걸어주고 return type은 상관 X, package명은 kh로 시작하고 그 밑은 뭐든 상관없어, 모든것.service르 끝날거고 메소드는 모든 것에 걸어줘
+		parameter는 있거나 없거나 노상관
+		* - 반드시 한 글자 이상 있음(메소드명) / .. - 0개부터 n개까지
+		class 이름 자체가 service면 동작 X Service 뒤 () 안에 parameter가 string 인 모양을 갖춘 얘한테만 aop 걸어줄거야
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethod"/> 
+		advice 로 만들어진 id와 매칭 시켜줘
+ 		advice 형태로 만들어진 bean 객체명
+ 		
+	</aop:config>
+	aop의 설정 걸어줌
+	
+ -->
 
 </beans>
