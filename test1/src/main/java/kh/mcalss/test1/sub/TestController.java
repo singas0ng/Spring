@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +23,14 @@ public class TestController {
 	@Autowired
 	//annotation은 바로 아래 1개의 명령어에만 영향을 끼침
 	private TestDto testDto;
+	//root-context.xml 에 있는 id명에 해당하는 객체를 부름
+	//=> 자료형과 이름이 매칭이 되는 얘를 찾아서 꺼내줌
+
+	//TODO
+//	@Value("testDto.a1")
+//	private String testA2;
+	//특정상황에서 value 하나만 꺼내보고 싶을때 사용 - property 와 같이 쓰일때 사용
+	
 	
 	//GetMapping, PostMapping도 있음
 	//doGet과 doPost의 역할이 확연히 달라서 RequestMapping은 좋지 X
@@ -40,6 +49,7 @@ public class TestController {
 		//parameter 값 순서 상관없음 -> 자료형들 가지고 있어서 차료형에 맞춰서 넣어주기 때문에 순서 상관 X
 		System.out.println("여기서 testDto Bean 확인");
 		System.out.println(testDto);
+
 		System.out.println(a);
 		System.out.println(request.getParameter("a"));
 		request.getSession().setAttribute("b", "세션값");

@@ -6,6 +6,22 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<!-- prefix 안붙어서 그냥 bean -->
 	
+	<bean id="testDto3" class="kh.mclass.test1.sub.model.dto.TestDto" init-method="init">
+	<!-- destroy-method - IO 관련된 클래스들은 만들고 나면 반드시 .close() 해야함  - close 넣어주기 -->
+		<constructor-arg name="a2" value="3첫값2"></constructor-arg>
+		<constructor-arg name="a1" value="세터이용해서값넣기2"></constructor-arg>
+		<property name="testFileDto" ref="testFileDto"></property>
+	<!-- 	TestFileDto 형태로 만들어진 객체를 넣어줌  -->
+	</bean>
+	
+	<bean id="testDto2" class="kh.mclass.test1.sub.model.dto.TestDto" init-method="init">
+	<!-- destroy-method - IO 관련된 클래스들은 만들고 나면 반드시 .close() 해야함  - close 넣어주기 -->
+		<constructor-arg name="a2" value="2첫값2"></constructor-arg>
+		<constructor-arg name="a1" value="세터이용해서값넣기2"></constructor-arg>
+		<property name="testFileDto" ref="testFileDto"></property>
+	<!-- 	TestFileDto 형태로 만들어진 객체를 넣어줌  -->
+	</bean>
+	
 	<bean id="testDto" class="kh.mclass.test1.sub.model.dto.TestDto" init-method="init">
 	<!-- destroy-method - IO 관련된 클래스들은 만들고 나면 반드시 .close() 해야함  - close 넣어주기 -->
 		<constructor-arg name="a2" value="첫값2"></constructor-arg>
@@ -19,6 +35,4 @@
 		<constructor-arg name="filePath" value="aaa.org"></constructor-arg>
 		<constructor-arg name="fileType" value="jpg"></constructor-arg>
 	</bean> 
-
-
 </beans>

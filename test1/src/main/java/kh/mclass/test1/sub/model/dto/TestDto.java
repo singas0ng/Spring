@@ -2,8 +2,9 @@ package kh.mclass.test1.sub.model.dto;
 
 import org.springframework.stereotype.Component;
 
-@Component("testDto")
+//@Component("testDto")
 //servlet-context.xml에서 bean으로 썼으면 이거 쓰면 안됨 - 둘 중 하나 써야함
+//annotation 으로 dto생성하면 compile 돌 때 만들어지기 때문에 기본 생성자 있어야함
 public class TestDto {
 	private String a1;
 	private String a2;
@@ -28,6 +29,7 @@ public class TestDto {
 		super();
 		
 	}
+	//
 
 	public TestDto(String a1, String a2, TestFileDto testFileDto) {
 		super();
