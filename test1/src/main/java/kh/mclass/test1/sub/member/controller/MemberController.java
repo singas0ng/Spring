@@ -34,4 +34,13 @@ public class MemberController {
 		//  prefix 가 views 뒤에 / 있기 때문에 앞에 / 이거 안써도됨
 	}
 	
+	@GetMapping("/member/one")
+	public String selectList(
+			Model model
+			, String memId
+			) {
+		model.addAttribute("member", memberService.selectOne(memId));
+		return "member/one";
+	}
+	
 }

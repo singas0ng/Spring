@@ -26,7 +26,7 @@ public class MemberService {
 		return memberDao.selectList(); 
 	}
 	
-	public void insertAbc() {
-		//pointcut 으로 설정한 부분을 여기에 집어넣어줌
+	public MemberRes selectOne(String memId){
+		return memberDao.selectOne(memId);
 	}
 }

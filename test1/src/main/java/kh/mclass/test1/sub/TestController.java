@@ -30,7 +30,7 @@ public class TestController {
 	//@RequestMapping(method = RequestMethod.GET, path = "/test")
 	//path 는 url 
 	@GetMapping("/test")
-	public String method1(@RequestParam(defaultValue = "aaa", required = false /*name="a"*/) String a, HttpServletRequest request, 
+	public String method1(@RequestParam(defaultValue = "aaa", required = false, name = "a") String a, HttpServletRequest request, 
 			//@RequestParam 쓰면 반드시 이거 값 들고왔었어야함. 안그러면 에러 뜸
 			//ex. url에 test=a?aa 이런식으로 썼었어야함
 			//아무것도 안들고 오면 default값으로 이걸 주겠어 + false써서 굳이 안들고 와도되~ 라는 것을 설정
@@ -46,10 +46,27 @@ public class TestController {
 		System.out.println(request.getParameter("a"));
 		request.getSession().setAttribute("b", "세션값");
 		session.setAttribute("c", "세션값2");
-		
+
 		request.setAttribute("serverTime", testService.method1());
 		return "home";
 		//home.jsp 출력됨
 	
 	}
+	
+	@GetMapping("/test/one")
+	public String method2(
+			@RequestParam(defaultValue = "aaa", required = false, name = "a") String b,
+			HttpServletRequest request,  
+			HttpSession ss,
+			HttpServletResponse res
+			) {
+		System.out.println(b);
+		System.out.println(request.getParameter("a"));
+		request.getSession().setAttribute("b", "세션값");
+		ss.setAttribute("c", "세션2");
+		
+		request.setAttribute("serverTime", testService.method1());
+		return "home";
+	}
+	
 }
