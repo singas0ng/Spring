@@ -12,7 +12,7 @@
 		<java-version>1.11</java-version>
 			<!-- 태그명이 속성명이고 가운데가 값 -->
 			<!-- 통일감 있게 쓰려고 이렇게 씀 -->
-		<org.springframework-version>3.1.1.RELEASE</org.springframework-version>
+		<org.springframework-version>5.3.4</org.springframework-version>
 		<!-- 여기서 변수 지정하고 속성 써서 아래에서 쓰게끔 하기 -->
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
@@ -103,8 +103,8 @@
 		<!-- Servlet -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>2.5</version>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>4.0.1</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
