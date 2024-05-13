@@ -10,14 +10,13 @@ import kh.mclass.test1.sub.member.model.dao.MemberDao;
 import kh.mclass.test1.sub.member.model.dto.MemberRes;
 
 @Service("memberService")
-@Transactional
-//둘다 해당 클래스에 적용 - 한개가 아니라 어려가개 그 다음 명령어에 적용 가능
+@Transactional //애는 optional(필요한 클래스에서만 사용) - Autocommit을 false로 지정해주고 메소드 내 결과에 따라 commit/rollback 해줌
 public class MemberService {
 
 	@Autowired
 	private MemberDao memberDao;
 	
-	//이 안에서 오류가 발생하면 자연스럽게 rollback 해줌
+	//이 안에서 오류가 발생하면 자연스럽게 rollback 해줌 + 성공하면 commit 해줌
 	//얘를 인식하려면 pom.xml 에 jar가 있거나 servlet-context.xml에서 scanning 해줘야함
 	//@Transactional
 	public List<MemberRes> selectList(){
