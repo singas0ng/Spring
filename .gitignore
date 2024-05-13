@@ -1,6 +1,7 @@
 .metadata/
 Servers/
-*.properties
+keyproperties/
+#*.properties
 target/
 pom.xml.tag
 pom.xml.releaseBackup
