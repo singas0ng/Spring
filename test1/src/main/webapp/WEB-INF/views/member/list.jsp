@@ -9,7 +9,7 @@
 <body>
 
 	<h1>member/list 페이지 </h1>
-	${memberlist }
+	${memberList }
 
 </body>
 </html>
