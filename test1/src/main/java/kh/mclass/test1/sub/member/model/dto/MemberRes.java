@@ -5,6 +5,12 @@ public class MemberRes {
 	private String memPwd;
 	private String memEmail;
 	
+	
+	@Override
+	public String toString() {
+		return "MemberRes [memId=" + memId + ", memPwd=" + memPwd + ", memEmail=" + memEmail + "]";
+	}
+
 	public MemberRes() {
 		super();
 	}
