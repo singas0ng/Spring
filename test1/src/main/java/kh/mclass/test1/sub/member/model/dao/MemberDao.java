@@ -14,16 +14,21 @@ public class MemberDao {
 	private SqlSession sqlSession;
 	
 	public List<MemberRes> selectList(){
-		return sqlSession.selectList("Member.List"); 
+		return sqlSession.selectList("Member.list"); 
+	}
+	
+	public MemberRes selectOne(String memId){
+
+		return sqlSession.selectOne("Member.one", memId);
 	}
 	
 	public int insert(){
-		sqlSession.update("Member.List");
+		//sqlSession.update("Member.List");
 		return 0; 
 	}
 	
 	public int update(){
-		sqlSession.update("Member.List");
+		//sqlSession.update("Member.List");
 		return 0; 
 	}
 }
