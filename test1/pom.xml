@@ -79,12 +79,13 @@
 		    <version>2.12.0</version>
 		</dependency>
 
-		<!-- jdbc - log -->
+		<!-- jdbc - log 찍어주는 jar -->
 		<dependency>
 		    <groupId>org.bgee.log4jdbc-log4j2</groupId>
 		    <artifactId>log4jdbc-log4j2-jdbc4.1</artifactId>
 		    <version>1.16</version>
 		</dependency>
+		<!-- jar 안에 있는 얘가 log4jdbc.log4j2.properties 이거 찾음 -->
 
 
 						
@@ -101,6 +102,8 @@
 		    <version>${org.aspectj-version}</version>
 		    <scope>runtime</scope>
 		</dependency>
+		<!-- run 돌기 시작하면 코드 해당 위치에 박힘 -->
+		<!--scope: 동작하면 그때만 작동하는 jar  -->
 		
 			
 		<!-- Logging -->
@@ -178,8 +181,19 @@
 			<artifactId>junit</artifactId>
 			<version>4.7</version>
 			<scope>test</scope>
-		</dependency>        
-	</dependencies>
+		</dependency>
+		
+		<!-- lombok -->
+		<dependency>
+		    <groupId>org.projectlombok</groupId>
+		    <artifactId>lombok</artifactId>
+		    <version>1.18.32</version>
+		    <scope>provided</scope>
+		</dependency>
+		
+	        
+	</dependencies>		
+	
     <build>
         <plugins>
             <plugin>
