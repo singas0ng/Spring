@@ -8,11 +8,12 @@
 		<param name="Target" value="System.out" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
+			<!-- %-5p(priority): %로 5칸 차지하는데 왼쪽 정렬,  %c: 클래스 이름, %m: message, %n: 내가 정의한 메세지 내용-->
 		</layout>
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="kh.mcalss.test1">
+	<logger name="kh.mclass.test1">
 		<level value="debug" />
 	</logger>
 	
@@ -34,6 +35,10 @@
 	</logger>
 
      <Logger name="org.springframework">
+         <level value="info" />
+     </Logger>
+     
+     <Logger name="org.springframework.jndi">
          <level value="info" />
      </Logger>
      
