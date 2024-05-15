@@ -1,8 +1,10 @@
 package kh.mclass.test1.common;
 
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -109,4 +111,18 @@ public class AdviceLog {
 	}
 	
 	//warning - error 정도만 고객사에게..
+	
+	//@Before("controllerPointcut()")
+	public void beforeControllerLog(JoinPoint jp) {
+		//먼저 해야하는 상황이 존재 -> proxy (proxy를 거쳤다 가는데 그 역할을 AOP가 함)
+		logger.debug("▷[" + jp.getThis() + ", 이거의 메소드명 - " + jp.getSignature().getName() + "]");
+		//parameter 값을 들어있음
+		Object[] args = jp.getArgs();
+		//object의 배열모양으로 넘어옴
+
+		for(int i = 0; i < args.length; i++) {
+			System.out.println("▷-args["+ i + "] " + args[i] + "");
+		}
+	}
+	
 }
