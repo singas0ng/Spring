@@ -18,7 +18,7 @@ public class MemberService {
 	
 	//이 안에서 오류가 발생하면 자연스럽게 rollback 해줌 + 성공하면 commit 해줌
 	//얘를 인식하려면 pom.xml 에 jar가 있거나 servlet-context.xml에서 scanning 해줘야함
-	//@Transactional
+	@Transactional
 	public List<MemberRes> selectList(){
 		memberDao.insert();
 		memberDao.update(); //update 는 0이 return 된다고해서 오류 아님
